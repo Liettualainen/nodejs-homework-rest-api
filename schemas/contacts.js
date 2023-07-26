@@ -6,6 +6,12 @@ const addSchema = Joi.object({
   phone: Joi.number().required(),
 })
 
+const nameAddSchema = Joi.object({
+  name: Joi.string().required(),
+})
+
+
 module.exports = {
-    addSchema,
+  addSchema,
+    nameAddSchema,
 }
