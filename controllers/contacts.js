@@ -3,7 +3,7 @@ const { Contact } = require("../models/contact")
 const { HttpError, ctrlWrapper } = require("../helpers");
 
 const allContacts = async (req, res) => {
-  const allContacts = await Contact.find({},"name");
+  const allContacts = await Contact.find();
   res.status(200).json(allContacts);
 }
 
