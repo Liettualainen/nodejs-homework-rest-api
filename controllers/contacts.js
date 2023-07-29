@@ -8,7 +8,7 @@ const allContacts = async (req, res) => {
 }
 
 const getContactById = async (req, res) => {
-    const { id } = req.params;
+    const { id} = req.params;
   const contactID = await Contact.findbyId({id });;
     if (!contactID) {
       throw HttpError(404, 'Not found id');
@@ -16,14 +16,10 @@ const getContactById = async (req, res) => {
     res.status(200).json(contactID)
 }
 
-// const addContact = async (req, res) => {
-//      const { name, email, phone } = req.body;
-//     const newContact = await contactsFunction.addContact({ name, email, phone });
-//         if (!newContact) {
-//       throw HttpError(404, 'Not found id');
-//     }
-//     res.status(201).json(newContact)
-// }
+const addContact = async (req, res) => {
+    const newContact = await Contact.addContact(req.body);
+  res.status(201).json(newContact);
+}
 
 // const removeContact = async (req, res) => {
 //      const { id } = req.params;
@@ -34,34 +30,31 @@ const getContactById = async (req, res) => {
 //     res.status(200).json("contact deleted")
 // }
 
-// const updateContact = async (req, res) => {
+const updateContact = async (req, res) => {
+      const { id } = req.params;
+  const contactID = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+     if (!contactID) {
+      throw HttpError(404, 'Not found');
+    }
+    res.status(200).json(contactID)
+}
 
-//       const { id } = req.params;
-//     const { name, email, phone } = req.body;
-//     const contactID = await contactsFunction.updateContact(id, { name, email, phone });
-//      if (!contactID) {
-//       throw HttpError(404, 'Not found');
-//     }
-//     res.status(200).json(contactID)
-// }
-
-// const partsUpdateContact = async (req, res) => {
-//       const { id } = req.params;
-//     const { name } = req.body;
-//     const contactID = await contactsFunction.partsUpdateContact(id, name);
-//      if (!contactID) {
-//       throw HttpError(404, 'Not found');
-//     }
-//     res.status(200).json(contactID)
-// }
+const favoriteAdd = async (req, res) => {
+      const { id } = req.params;
+  const contactID = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+     if (!contactID) {
+      throw HttpError(404, 'Not found');
+    }
+    res.status(200).json(contactID)
+}
 
 
 module.exports = {
     allContacts:ctrlWrapper(allContacts),
     getContactById:ctrlWrapper(getContactById),
-  //   addContact:ctrlWrapper(addContact),
+    addContact:ctrlWrapper(addContact),
   //   removeContact:ctrlWrapper(removeContact),
-  // updateContact: ctrlWrapper(updateContact),
-  //  partsUpdateContact: ctrlWrapper(partsUpdateContact),
+  updateContact: ctrlWrapper(updateContact),
+   favoriteAdd: ctrlWrapper(favoriteAdd),
     
 }
