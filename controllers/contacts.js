@@ -7,14 +7,14 @@ const allContacts = async (req, res) => {
   res.status(200).json(allContacts);
 }
 
-// const getContactById = async (req, res) => {
-//     const { id } = req.params;
-//     const contactID = await contactsFunction.getContactById(id);
-//     if (!contactID) {
-//       throw HttpError(404, 'Not found id');
-//     }
-//     res.status(200).json(contactID)
-// }
+const getContactById = async (req, res) => {
+    const { id } = req.params;
+  const contactID = await Contact.findbyId({id });;
+    if (!contactID) {
+      throw HttpError(404, 'Not found id');
+    }
+    res.status(200).json(contactID)
+}
 
 // const addContact = async (req, res) => {
 //      const { name, email, phone } = req.body;
@@ -58,7 +58,7 @@ const allContacts = async (req, res) => {
 
 module.exports = {
     allContacts:ctrlWrapper(allContacts),
-  //   getContactById:ctrlWrapper(getContactById),
+    getContactById:ctrlWrapper(getContactById),
   //   addContact:ctrlWrapper(addContact),
   //   removeContact:ctrlWrapper(removeContact),
   // updateContact: ctrlWrapper(updateContact),
