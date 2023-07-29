@@ -27,11 +27,11 @@ const addSchema = Joi.object({
     favorite: Joi.boolean(),
   
 })
-const nameAddSchema = Joi.object({
+const favoriteAddSchema = Joi.object({
     favorite: Joi.boolean().required(),
 })
 const schemas = {
-    addSchema, nameAddSchema,
+    addSchema, favoriteAddSchema,
 }
 
 module.exports = { Contact, schemas};
