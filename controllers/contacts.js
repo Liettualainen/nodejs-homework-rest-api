@@ -9,7 +9,7 @@ const allContacts = async (req, res) => {
 
 const getContactById = async (req, res) => {
     const { id} = req.params;
-  const contactID = await Contact.findbyId({id });;
+  const contactID = await Contact.findbyId(id);;
     if (!contactID) {
       throw HttpError(404, 'Not found id');
     }
