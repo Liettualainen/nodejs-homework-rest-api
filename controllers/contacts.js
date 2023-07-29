@@ -17,18 +17,18 @@ const getContactById = async (req, res) => {
 }
 
 const addContact = async (req, res) => {
-    const newContact = await Contact.addContact(req.body);
+    const newContact = await Contact.create(req.body);
   res.status(201).json(newContact);
 }
 
-// const removeContact = async (req, res) => {
-//      const { id } = req.params;
-//     const contactID = await contactsFunction.removeContact(id);
-//     if (!contactID) {
-//       throw HttpError(404, 'Not found id');
-//     }
-//     res.status(200).json("contact deleted")
-// }
+const removeContact = async (req, res) => {
+     const { id } = req.params;
+    const contactID = await Contact.findByIdAndDelete(id);
+    if (!contactID) {
+      throw HttpError(404, 'Not found id');
+    }
+    res.status(200).json("contact deleted")
+}
 
 const updateContact = async (req, res) => {
       const { id } = req.params;
@@ -53,7 +53,7 @@ module.exports = {
     allContacts:ctrlWrapper(allContacts),
     getContactById:ctrlWrapper(getContactById),
     addContact:ctrlWrapper(addContact),
-  //   removeContact:ctrlWrapper(removeContact),
+    removeContact:ctrlWrapper(removeContact),
   updateContact: ctrlWrapper(updateContact),
    favoriteAdd: ctrlWrapper(favoriteAdd),
     
