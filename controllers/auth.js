@@ -2,10 +2,19 @@ const { User } = require("../models/user");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
 
-const register = async(req, res) => {
+const register = async (req, res) => {
+    
+    const { email } = req.dody;
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+        throw HttpError(409, "Email already in use");
+    }
+
     const newUser = await User.create(req.body);
 
-    res.json({
+    res.status(201).json({
         email: newUser.email,
         name: newUser.name,
     })
