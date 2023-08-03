@@ -26,7 +26,10 @@ const userSchema = new Schema({
     enum: ["starter", "pro", "business"],
     default: "starter"
     },
-    token: String,
+    token: {
+    type: String,
+    default: "",
+    }
 }, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handleMongooseError);
@@ -36,7 +39,7 @@ const registerSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().pattern(emailREgexp).required(),
     password: Joi.string().min(6).required(),
-    subscription: Joi.string(),
+    subscription: Joi.string().valid('starter','pro', 'business'),
 })
 const loginSchema = Joi.object({
     email: Joi.string().pattern(emailREgexp).required(),
