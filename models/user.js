@@ -40,11 +40,13 @@ const registerSchema = Joi.object({
     email: Joi.string().pattern(emailREgexp).required(),
     password: Joi.string().min(6).required(),
     subscription: Joi.string().valid('starter', 'pro', 'business'),
-    token:Joi.string(),
+     token: Joi.string(),
+   
 })
 const loginSchema = Joi.object({
     email: Joi.string().pattern(emailREgexp).required(),
     password: Joi.string().min(6).required(),
+    token: Joi.string(),
 })
 const schemas = {
     registerSchema, loginSchema,
