@@ -7,7 +7,7 @@ const { User } = require("../models/user");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
 
-const register = async (req, res) => {
+const register = async(req, res) => {
     
     const {email, password} = req.body;
 
@@ -27,7 +27,7 @@ const register = async (req, res) => {
     })
 }
 
-const login = async (req, res) => {
+const login = async(req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -59,8 +59,8 @@ const getCurrent = async(req, res) => {
 
 }
 
-const logout = async (req, res) => {
-    const {_id} = req.user;
+const logout = async(req, res) => {
+    const { _id } = req.user;
     await User.findByIdAndUpdate(_id, {token: ""});
         res.status(204).json({
         "message": "Logout success"
