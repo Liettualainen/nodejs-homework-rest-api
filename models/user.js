@@ -20,7 +20,13 @@ const userSchema = new Schema({
         type: String,
         minlength: 6,
         required: true,
-    }
+    },
+    subscription: {
+    type: String,
+    enum: ["starter", "pro", "business"],
+    default: "starter"
+    },
+    token: String,
 }, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handleMongooseError);
