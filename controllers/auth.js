@@ -72,15 +72,37 @@ const logout = async(req, res) => {
     })
 }
 
+const updateSubscr = async (req, res) => {
+  const { _id } = req.user;
+  const { subscription } = req.body;
+  await User.findByIdAndUpdate(_id, { subscription });
+  res.status(204).json({
+    message: "Subscription updated successfully",
+  });
+};
+
+
+
+const resizeImage = async (imagePath) => {
+  try {
+    const image = await Jimp.read(imagePath);
+    image.resize(250, 250);
+    await image.writeAsync(imagePath);
+  } catch (error) {
+    throw HttpError(404);
+  }
+};
+
+
+
+
 const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
-    const image = await Jimp.read(filename);
-    await image.resize(20, Jimp.AUTO);
-
     const resultUpload = path.join(avatarsDir, filename);
     await fs.rename(tempUpload, resultUpload);
+    await resizeImage(resultUpload);
     const avatarURL = path.join("avatars", filename);
     await User.findByIdAndUpdate(_id, {avatarURL});
     res.json({
@@ -93,5 +115,6 @@ module.exports = {
     login: ctrlWrapper(login),
     getCurrent: ctrlWrapper(getCurrent),
     logout: ctrlWrapper(logout),
+    updateSubscr: ctrlWrapper(updateSubscr),
     updateAvatar: ctrlWrapper(updateAvatar),
 }
