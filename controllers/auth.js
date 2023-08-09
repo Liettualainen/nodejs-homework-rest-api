@@ -86,7 +86,7 @@ const updateSubscr = async (req, res) => {
 const resizeImage = async (imagePath) => {
   try {
     const image = await Jimp.read(imagePath);
-    image.resize(250, 250);
+    image.resize(25, 25);
     await image.writeAsync(imagePath);
   } catch (error) {
     throw HttpError(404);
