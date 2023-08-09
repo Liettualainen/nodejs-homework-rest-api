@@ -6,6 +6,7 @@ const { HttpError, ctrlWrapper } = require("../helpers");
 const { SECRET_KEY } = process.env;
 
 const gravatar = require("gravatar");
+const Jimp = require("jimp");
 
 const fs = require("fs/promises");
 const path = require("path");
@@ -75,6 +76,14 @@ const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
+    Jimp.read("filename")
+        .then((filename) => {
+            return filename
+                .resize(250, 250) // resize
+        })
+  .catch((err) => {
+    console.error(err);
+  });
     const resultUpload = path.join(avatarsDir, filename);
     await fs.rename(tempUpload, resultUpload);
     const avatarURL = path.join("avatars", filename);
