@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const { User } = require("../models/user");
-const { HttpError, ctrlWrapper } = require("../helpers");
+const { HttpError, ctrlWrapper, resizeImage } = require("../helpers");
 const { SECRET_KEY } = process.env;
 
 const gravatar = require("gravatar");
@@ -82,27 +82,15 @@ const updateSubscr = async (req, res) => {
 };
 
 
-
-const resizeImage = async (imagePath) => {
-  try {
-    const image = await Jimp.read(imagePath);
-    image.resize(25, 25);
-    await image.writeAsync(imagePath);
-  } catch (error) {
-    throw HttpError(404);
-  }
-};
-
-
-
-
 const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
     const resultUpload = path.join(avatarsDir, filename);
     await fs.rename(tempUpload, resultUpload);
+
     await resizeImage(resultUpload);
+    
     const avatarURL = path.join("avatars", filename);
     await User.findByIdAndUpdate(_id, {avatarURL});
     res.json({
