@@ -79,7 +79,7 @@ const updateAvatar = async (req, res) => {
     Jimp.read(filename)
         .then((filename) => {
             return filename
-                .resize(250, 250)
+                .resize(25, 25)
         })
   .catch((err) => {
     console.error(err);
