@@ -76,10 +76,10 @@ const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;
-    Jimp.read("filename")
+    Jimp.read(filename)
         .then((filename) => {
             return filename
-                .resize(250, 250) // resize
+                .resize(250, 250)
         })
   .catch((err) => {
     console.error(err);
