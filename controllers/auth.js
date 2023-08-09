@@ -1,17 +1,15 @@
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
+const { User } = require("../models/user");
+const { HttpError, ctrlWrapper } = require("../helpers");
+const { SECRET_KEY } = process.env;
+
 const gravatar = require("gravatar");
 
 const fs = require("fs/promises");
 const path = require("path");
-
-const { User } = require("../models/user");
-const { SECRET_KEY } = process.env;
-const { HttpError, ctrlWrapper } = require("../helpers");
-
-const avatarsDir = path.join(__dirname,"../" ,"../public", "avatars")
-
+const avatarsDir = path.join(__dirname,"../" ,"public", "avatars")
 
 const register = async(req, res) => {
     

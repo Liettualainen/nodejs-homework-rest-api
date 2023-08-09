@@ -3,7 +3,7 @@ const path = require("path");
 
 const tempDir = path.join(__dirname, "../", "temp");
 
-const mulerConfig = multer.diskStorage({
+const multerConfig = multer.diskStorage({
     destination: tempDir,
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -11,7 +11,7 @@ const mulerConfig = multer.diskStorage({
 });
 
 const upload = multer({
-  storage: mulerConfig
+  storage: multerConfig
 })
 
 module.exports = upload;
