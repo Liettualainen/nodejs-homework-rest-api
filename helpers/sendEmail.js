@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-const sendEmail = async () => {
+const sendEmail = async (info) => {
   try {
     const transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
@@ -11,13 +11,13 @@ const sendEmail = async () => {
     pass: 'Mv6M59etmFGPPgwGQn'
   }
 });
-  const info ={
-    from: "jason.abbott@ethereal.email",
-    to: "jason.abbott@ethereal.email",
-    subject: "Hello ✔", 
-    text: "Hello world?",
-    html: "<b>Hello world?</b>",
-  };
+  // const info ={
+  //   from: "jason.abbott@ethereal.email",
+  //   to: "jason.abbott@ethereal.email",
+  //   subject: "Hello ✔", 
+  //   text: "Hello world?",
+  //   html: "<b>Hello world?</b>",
+  // };
     
     const result = await transporter.sendMail(info);
       console.log("Email sended");

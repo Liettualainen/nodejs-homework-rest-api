@@ -116,7 +116,6 @@ const updateSubscr = async (req, res) => {
   });
 };
 
-
 const updateAvatar = async (req, res) => {
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
