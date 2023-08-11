@@ -1,7 +1,9 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
+const sendEmail = async () => {
+  try {
+    const transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
   port: "587",
   auth: {
@@ -9,27 +11,20 @@ const transporter = nodemailer.createTransport({
     pass: 'Mv6M59etmFGPPgwGQn'
   }
 });
-
-
-const sendEmail = async () => {
-  const info = await transporter.sendMail({
+  const info ={
     from: "jason.abbott@ethereal.email",
     to: "jason.abbott@ethereal.email",
     subject: "Hello ✔", 
     text: "Hello world?",
     html: "<b>Hello world?</b>",
-  });
-
-  console.log("Message sent: %s", info.messageId);
-}
-
-transporter.sendMail(sendEmail, (err, info) => {
-    if (err) {
+  };
+    
+    const result = await transporter.sendMail(info);
+      console.log("Email sended");
+  }
+  catch(err) {  
         console.log("Mail sending error", err);
     }
-    else {
-        console.log("mail sendingsuccesfuly", info);
-    }
-});
+};
 
 module.exports = sendEmail;
