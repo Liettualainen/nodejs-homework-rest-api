@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        // match: emailREgexp,
+        match: emailREgexp,
         unique: true,
         required: true,
     },
@@ -50,17 +50,14 @@ const User = model("user", userSchema);
 const registerSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().pattern(emailREgexp).required(),
-    // email: Joi.string().required(),
     password: Joi.string().min(6).required(),
     subscription: Joi.string().valid('starter', 'pro', 'business'),
 })
 const emailSchema = Joi.object({
     email: Joi.string().pattern(emailREgexp).required(),
-    // email: Joi.string().required(),
 })
 const loginSchema = Joi.object({
     email: Joi.string().pattern(emailREgexp).required(),
-    // email: Joi.string().required(),
     password: Joi.string().min(6).required(),
 })
 const schemas = {

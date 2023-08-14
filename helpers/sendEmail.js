@@ -11,14 +11,6 @@ const sendEmail = async (info) => {
     pass: 'Mv6M59etmFGPPgwGQn'
   }
 });
-  // const info ={
-  //   from: "jason.abbott@ethereal.email",
-  //   to: "jason.abbott@ethereal.email",
-  //   subject: "Hello ✔", 
-  //   text: "Hello world?",
-  //   html: "<b>Hello world?</b>",
-  // };
-    
     const result = await transporter.sendMail(info);
     console.log("Email sended");
     return result;
