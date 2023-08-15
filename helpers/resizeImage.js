@@ -1,7 +1,6 @@
 const Jimp = require("jimp");
 const  HttpError  = require("./HttpError");
 
-
 const resizeImage = async (imagePath) => {
   try {
     const image = await Jimp.read(imagePath);
@@ -11,6 +10,5 @@ const resizeImage = async (imagePath) => {
     throw HttpError(404);
   }
 };
-
 
 module.exports = resizeImage;
